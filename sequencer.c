@@ -5,6 +5,7 @@
 #include "dir.h"
 #include "object.h"
 #include "commit.h"
+#include "pretty.h"
 #include "tag.h"
 #include "run-command.h"
 #include "exec_cmd.h"

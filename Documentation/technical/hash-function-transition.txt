@@ -162,8 +162,18 @@ The sha1-name of an object is the SHA-1 of the concatenation of its
 type, length, a nul byte, and the object's sha1-content. This is the
 traditional <sha1> used in Git to name objects.
 
-The newhash-name of an object is the NewHash of the concatenation of its
-type, length, a nul byte, and the object's newhash-content.
+The newhash-name of a blob object is the NewHash of the blob's byte
+contents. The newhash-name of a non-blob object is the NewHash of the
+concatenation of its type, length, a nul byte, and the object's content,
+with all bits of the hash result flipped.
+
+This definition makes the newhash-name of a blob compatible with a
+straight hash, such as those produced by 'openssl dgst -$NewHash' or
+'${NewHash}sum'. This should help integration and interoperability with
+other content-addressable object storage systems that use the same hash
+function. It should also make the hash less "magical" and easy to verify
+manually. The newhash-name of a non-blob object cannot collide with that of
+a blob without breaking the hash function.
 
 Object format
 ~~~~~~~~~~~~~
